@@ -13,6 +13,10 @@ Ziel: Go lernen anhand kleiner CLI-Tools.
 - Goroutinen (`go f()`) — Achtung: Argumente eines `go`-Aufrufs werden synchron ausgewertet, nur der Aufruf selbst läuft parallel
 - `sync.WaitGroup` (`Add`/`Done`/`Wait`) zum Warten auf Goroutinen
 - `os.Args` für CLI-Argumente (Slice, kein `argc` nötig, leere Slice ist sicher)
+- Structs (`type Task struct { ... }`) mit typisierten Feldern
+- `time.Time` als Standard-Typ für Datum/Zeit (nicht `time.Date`, das ist nur die Konstruktor-Funktion)
+- `encoding/json`: `json.Marshal` nutzt standardmäßig den exakten (großgeschriebenen) Go-Feldnamen als Key
+- Struct-Tags (z.B. `` `json:"name"` ``) zur Steuerung von JSON-Keys, ausgelesen per Reflection
 
 ## Projekt 1: URL-Health-Checker — fertig
 
@@ -26,9 +30,13 @@ Pfad: `~/Projects/wordcount/`
 
 Nimmt einen Dateipfad als CLI-Argument, liest zeilenweise per `bufio.Scanner` und zählt Zeilen/Wörter/Zeichen. Neu gelernt: `os.Open` + `defer file.Close()` (gleiches Muster wie `resp.Body.Close()`), `bufio.Scanner`, `strings.Fields`, `fmt.Printf` mit `%s`/`%d` (Analogie zu C's `printf`).
 
-## Nächstes Projekt
+## Projekt 3: Todo-Manager — in Arbeit
 
-3. **Todo-Manager** — speichert Aufgaben in lokaler JSON-Datei, Befehle wie `add`/`list`/`done`. Neue Themen: JSON (`encoding/json`), Structs, Subcommands. (in Arbeit)
+Pfad: `~/Projects/go-learning/todo/`
+
+Speichert Aufgaben in lokaler JSON-Datei, Befehle wie `add`/`list`/`done`. Neue Themen: JSON (`encoding/json`), Structs, Subcommands.
+
+Stand: `Task`-Struct definiert (`ID int`, `Name string`, `Deadline time.Time`, `Done bool`), `json.Marshal` einmal ohne Tags getestet (Ergebnis: großgeschriebene Keys). Nächster Schritt: Struct-Tags für kleingeschriebene JSON-Keys ergänzen, danach Subcommands (`add`/`list`/`done`) und Persistenz in Datei.
 
 ## Didaktisches Format der Session
 
